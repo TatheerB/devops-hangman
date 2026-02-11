@@ -154,6 +154,7 @@ function startGame() {
     document.getElementById('player2Display').textContent = gameState.player2.name;
 
     document.getElementById('gameArea').style.display = 'block';
+
     nextRound();
 }
 
@@ -229,8 +230,8 @@ function updateWrongLetters() {
 }
 
 function updateLives() {
-    const livesLeft = gameState.maxWrong - gameState.wrongGuesses + 1;
-    document.getElementById('livesLeft').textContent = livesLeft;
+    const livesLeft = gameState.maxWrong - gameState.wrongGuesses;
+    document.getElementById('livesLeft').textContent = `Lives Remaining: ${livesLeft} / ${gameState.maxWrong}`;
 }
 
 function updateHangman() {
