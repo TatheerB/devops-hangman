@@ -154,7 +154,6 @@ function startGame() {
     document.getElementById('player2Display').textContent = gameState.player2.name;
 
     document.getElementById('gameArea').style.display = 'block';
-
     nextRound();
 }
 
