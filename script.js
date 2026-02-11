@@ -178,6 +178,12 @@ function guessLetter(letter) {
     }
     
     gameState.guessedLetters.push(letter);
+
+    // Disable the clicked letter button
+    const button = document.getElementById('key-' + letter);
+    if (button) {
+        button.disabled = true;
+    }
     
     if (!gameState.currentWord.includes(letter)) {
         gameState.wrongGuesses++;
