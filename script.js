@@ -152,23 +152,25 @@ function startGame() {
     const p1Name = document.getElementById('player1Name').value.trim();
     const p2Name = document.getElementById('player2Name').value.trim();
 
+    // Validation
     if (!p1Name || !p2Name) {
-        alert('Both player names are required.');
-        return; // Stop the game from starting
+        alert('Both player names are required!');
+        return;
     }
 
     if (p1Name === p2Name) {
-        alert('Player names must be different.');
-        return; // Stop the game from starting
+        alert('Player names must be different!');
+        return;
     }
 
     gameState.player1.name = p1Name;
     gameState.player2.name = p2Name;
-    
+
     document.getElementById('player1Display').textContent = gameState.player1.name;
     document.getElementById('player2Display').textContent = gameState.player2.name;
 
     document.getElementById('gameArea').style.display = 'block';
+
     nextRound();
 }
 
@@ -244,8 +246,8 @@ function updateWrongLetters() {
 }
 
 function updateLives() {
-    const livesLeft = gameState.maxWrong - gameState.wrongGuesses + 1;
-    document.getElementById('livesLeft').textContent = livesLeft;
+    const livesLeft = gameState.maxWrong - gameState.wrongGuesses;
+    document.getElementById('livesLeft').textContent = `Lives Remaining: ${livesLeft} / ${gameState.maxWrong}`;
 }
 
 function updateHangman() {
