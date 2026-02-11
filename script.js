@@ -89,7 +89,7 @@ function displayWordBank() {
 function addWord() {
     const input = document.getElementById('newWord');
     const word = input.value.trim().toUpperCase();
-    if (!word) return; // Prevent empty words
+
     wordBank.push(word);
     input.value = '';
     saveWordBank();
@@ -132,13 +132,14 @@ function startGame() {
     const p1Name = document.getElementById('player1Name').value.trim();
     const p2Name = document.getElementById('player2Name').value.trim();
 
+    // Validation
     if (!p1Name || !p2Name) {
         alert('Both player names are required.');
-        return;
+        return; // Stop the game from starting
     }
     if (p1Name === p2Name) {
         alert('Player names must be different.');
-        return;
+        return; // Stop the game from starting
     }
 
     gameState.player1.name = p1Name;
@@ -148,6 +149,7 @@ function startGame() {
     document.getElementById('player2Display').textContent = gameState.player2.name;
 
     document.getElementById('gameArea').style.display = 'block';
+
     nextRound();
 }
 
@@ -206,15 +208,25 @@ function updateWordDisplay() {
 
 function updateWrongLetters() {
     const wrongLettersDiv = document.getElementById('wrongLetters');
-    const wrong = gameState.guessedLetters.filter(letter => !gameState.currentWord.includes(letter));
-    wrongLettersDiv.textContent = wrong.length === 0 ? 'None yet' : wrong.join(', ');
+    const wrong = gameState.guessedLetters.filter(letter => 
+        !gameState.currentWord.includes(letter)
+    );
+    
+    if (wrong.length === 0) {
+        wrongLettersDiv.textContent = 'None yet';
+    } else {
+        wrongLettersDiv.textContent = gameState.guessedLetters.join(', ');
+    }
 }
 
 function updateLives() {
-    document.getElementById('livesLeft').textContent = gameState.maxWrong - gameState.wrongGuesses + 1;
+    const livesLeft = gameState.maxWrong - gameState.wrongGuesses + 1;
+    document.getElementById('livesLeft').textContent = livesLeft;
 }
 
 function updateHangman() {
+    const parts = ['head', 'body', 'leftArm', 'rightArm', 'leftLeg', 'rightLeg'];
+    
     const wrongOrder = ['head', 'leftArm', 'rightArm', 'body', 'leftLeg', 'rightLeg'];
     const partIndex = gameState.wrongGuesses - 1;
     if (partIndex >= 0 && partIndex < wrongOrder.length) {
